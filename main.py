@@ -32,14 +32,16 @@ PORT = 50268
 # INTERFACE DE ZTB
 INTERFACE_NAME = "ztbpan3637"
 
+SCORE = 0
+
 
 class GamePacket(Packet):
     name = "GamePacket"
     fields_desc=[ IntField("compteur",0)]
 
-def generation_paquet_depart():
+def generation_paquet(compteur = COMPTEUR):
 	# Fonction qui genere le premier paquet du jeu
-	return GamePacket(compteur = COMPTEUR)
+	return GamePacket(compteur = compteur)
 
 def IP_propre():
 	# Renvoie l'IP 
@@ -55,11 +57,11 @@ def trouve_destinataire():
 
 def envoie(paquet):
 	destinataire = trouve_destinataire()
-	destinataire = "10.147.17.5"
+	destinataire = "10.147.17.190"
 	print(destinataire)
 
 	# On construit le paquet
-	paquet_construit = IP(dst=destinataire)/UDP(dport = PORT,sport = 15)/GamePacket(compteur = COMPTEUR)
+	paquet_construit = IP(dst=destinataire)/UDP(dport = PORT,sport = 15)/paquet
 	paquet_construit.show()
 	# Envoie du paquet
 	send(paquet_construit)
@@ -67,6 +69,20 @@ def envoie(paquet):
 def callback_paquet_recu(paquet):
 	paquet_class = GamePacket(paquet[Raw].load)
 	paquet_class.show()
+
+	# On
+	SCORE += 1
+
+	# On cherche la valeur actuelle du counter contenue dans le paquet
+	valeur = getattr(paquet_class["IP"], "compteur")
+
+	# On crée le nouveau paquet 
+	nouveau_paquet = generation_paquet(int(valeur)-1)
+
+	# On renvoie le nouveau paquet 
+	envoie(nouveau_paquet)
+
+
 
 def attente_paquet():
 	# On attend
@@ -76,8 +92,10 @@ def attente_paquet():
 def main():
 	# Main
 	if True:#IP_propre() == IP_serveur:
-		paquet_debut = generation_paquet_depart()
+		paquet_debut = generation_paquet()
 		envoie(paquet_debut)
+
+
 
 	attente_paquet()
 
