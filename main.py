@@ -31,6 +31,8 @@ PORT = 50268
 
 # INTERFACE DE ZTB
 INTERFACE_NAME = "ztbpan3637"
+INTERFACE_NAME = conf.iface
+
 
 SCORE = 0
 
