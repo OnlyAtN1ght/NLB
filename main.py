@@ -16,6 +16,7 @@ PORT = 50268
 
 # INTERFACE DE ZTB
 INTERFACE_NAME = "ZeroTier One [8850338390ee78ef]"
+#INTERFACE_NAME = conf.iface
 
 #global(SCORE)
 SCORE=0
@@ -84,6 +85,7 @@ def callback_paquet_recu(paquet):
 
 def attente_paquet():
 	# On attend
+	# INTERFACE_NAME = "ZeroTier One [8850338390ee78ef]"
 	print("En attente d'un paquet : ")
 	sniff(filter = "port {PORT}".format(PORT = PORT),iface = INTERFACE_NAME, prn = callback_paquet_recu)
 
@@ -91,6 +93,18 @@ def main():
 	# Main
 	attente_paquet()
 	
+
+
+
+
+if __name__ == '__main__':
+	main()propre() == IP_serveur:
+		paquet_debut = generation_paquet()
+		envoie(paquet_debut)
+
+
+
+	attente_paquet()
 
 
 
