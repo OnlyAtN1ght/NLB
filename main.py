@@ -12,11 +12,15 @@ LISTE_IP =[
         "10.147.17.119",
         "10.147.17.57",
         "10.147.17.69"]
+
+#"10.147.17.69","10.147.17.154",
+
 PORT = 50268
 
 # INTERFACE DE ZTB
 INTERFACE_NAME = "ZeroTier One [8850338390ee78ef]"
 #INTERFACE_NAME = conf.iface
+#INTERFACE_NAME = "ZeroTier One [8850338390ee78ef]"
 
 #global(SCORE)
 SCORE=0
@@ -31,7 +35,8 @@ def generation_paquet(compteur = COMPTEUR):
 	return GamePacket(compteur = compteur)
 
 def IP_propre():
-	# Renvoie l'IP 
+	# Renvoie l'IP
+	#return get_if_addr(IFACES.dev_from_name(INTERFACE_NAME)) (LAISSE CA STP) 
 	return get_if_addr(INTERFACE_NAME)
 
 def trouve_destinataire():
@@ -121,9 +126,4 @@ nom du paquet : “GamePacket”
 ttl ? (à choisir : propose 30)
 src : adresse IP source (pas besoin sur scapy)
 dst : adresse IP destination (pas besoin)
-
-
-
-
-
 """
