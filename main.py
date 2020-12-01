@@ -26,22 +26,26 @@ LISTE_IP =[
 	"10.147.17.190",
 	"10.147.17.75",
 	"10.147.17.80"]
+PORT = 50268
 
 # INTERFACE DE ZTB
 INTERFACE_NAME = "feth4232"
+
+
 class GamePacket(Packet):
     name = "GamePacket"
     fields_desc=[ IntField("compteur",0)]
 
 def generation_paquet_depart():
 	# Fonction qui genere le premier paquet du jeu
-	p = GamePacket(compteur = COMPTEUR)
-	return p
+	return GamePacket(compteur = COMPTEUR)
 
 def IP_propre():
+	# Renvoie l'IP 
 	return get_if_addr(INTERFACE_NAME)
 
 def trouve_destinataire():
+	# Renvoie l'IP d'un des destinataires differents de celle de l'emeteur
 	choix = random.choice(LISTE_IP)
 	mon_ip = IP_propre()
 	while choix == mon_ip:
@@ -53,24 +57,35 @@ def envoie(paquet):
 	destinataire = "10.147.17.190"
 	print(destinataire)
 
-	# 
+	# On construit le paquet
+	paquet_construit = IP(dst=destinataire)/UDP(dport = PORT,sport = 15)/paquet
+	paquet_construit.show()
+	send(paquet_construit)
 
-	# envoie d'un paquet
-	sr(IP(dst=destinataire)/TCP(sport=666,dport=(440,443),flags="S"))
+def callback_paquet_recu(paquet):
+	paquet_class = GamePacket(paquet[Raw].load)
+	paquet_class.show()
 
-	send(IP(dst=destinataire)/paquet, return_packets=True)
+def attente_paquet():
+	# On attend 
+	print("En attente d'un paquet : ")
+	sniff(filter = "port {PORT}".format(PORT = PORT), prn = callback_paquet_recu)
+
+def main():
+	# Main 
+	if IP_propre() == IP_serveur:
+		paquet_debut = generation_paquet_depart()
+		envoie(paquet_debut)
+
+	attente_paquet()
 
 
 
 
 if __name__ == '__main__':
-	# Main 
-	paquet_debut = generation_paquet_depart()
-	envoie(paquet_debut)
+	main()
 
-	#ans, unans = srp(Ether(dst="ff:ff:ff:ff:ff:ff")/ARP(pdst="10.147.17.0/24"),timeout=TIMEOUT)
-	#ans.summary(lambda s,r: r.sprintf("%Ether.src% %ARP.psrc%") )
-	#ans, unans = sr(IP(dst="192.168.1.1-254")/ICMP())
+
 """
 Champs :
 nom du paquet : “GamePacket”
