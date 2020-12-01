@@ -58,7 +58,7 @@ def trouve_destinataire():
 
 def envoie(paquet):
 	destinataire = trouve_destinataire()
-	destinataire = "10.147.17.154"
+	destinataire = "10.147.17.190"
 	print(destinataire)
 
 	# On construit le paquet
