@@ -1,19 +1,7 @@
 
-
-
-
-
-
-Network Working Group                                   Steve Crocker
-Request for Comments: 1                                          UCLA
-                                                         7 April 1969
-
-
-                         Title:   Host Software
-                        Author:   Steve Crocker
-                          Installation:   UCLA
-                          Date:   7 April 1969
-             Network Working Group Request for Comment:   1
+                         Title:   Barking Protocole
+                        Author:   CyberLog A1 TP1
+                          Date:   December 2020
 
 
 CONTENTS
