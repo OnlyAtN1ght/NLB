@@ -54,12 +54,13 @@ def trouve_destinataire():
 
 def envoie(paquet):
 	destinataire = trouve_destinataire()
-	destinataire = "10.147.17.190"
+	destinataire = "10.147.17.119"
 	print(destinataire)
 
 	# On construit le paquet
-	paquet_construit = IP(dst=destinataire)/UDP(dport = PORT,sport = 15)/paquet
+	paquet_construit = IP(dst=destinataire)/UDP(dport = PORT,sport = 15)/GamePacket(compteur = COMPTEUR)
 	paquet_construit.show()
+	# Envoie du paquet
 	send(paquet_construit)
 
 def callback_paquet_recu(paquet):
@@ -73,7 +74,7 @@ def attente_paquet():
 
 def main():
 	# Main 
-	if IP_propre() == IP_serveur:
+	if True:#IP_propre() == IP_serveur:
 		paquet_debut = generation_paquet_depart()
 		envoie(paquet_debut)
 
@@ -85,6 +86,8 @@ def main():
 if __name__ == '__main__':
 	main()
 
+
+# TODO : interfaces reseaux
 
 """
 Champs :
