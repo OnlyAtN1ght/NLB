@@ -1,0 +1,5 @@
+								  RFC 1
+                         Title:   Barking Protocole
+                        Author:   CyberLog A1 TP1
+                          Date:   December 2020
+                       Version:   1.0
