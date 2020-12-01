@@ -30,7 +30,7 @@ LISTE_IP =[
 PORT = 50268
 
 # INTERFACE DE ZTB
-INTERFACE_NAME = "ztbpan3637b"
+INTERFACE_NAME = "ztbpan3637"
 
 
 class GamePacket(Packet):
@@ -71,7 +71,7 @@ def callback_paquet_recu(paquet):
 def attente_paquet():
 	# On attend
 	print("En attente d'un paquet : ")
-	sniff(filter = "port {PORT}".format(PORT = PORT),iface = "ztbpan3637", prn = callback_paquet_recu)
+	sniff(filter = "port {PORT}".format(PORT = PORT),iface = INTERFACE_NAME, prn = callback_paquet_recu)
 
 def main():
 	# Main
