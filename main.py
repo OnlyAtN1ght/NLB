@@ -30,9 +30,7 @@ LISTE_IP =[
 PORT = 50268
 
 # INTERFACE DE ZTB
-
 INTERFACE_NAME = "ZeroTier One [8850338390ee78ef]"
-
 
 #global(SCORE)
 SCORE=0
@@ -83,6 +81,13 @@ def callback_paquet_recu(paquet):
 	print(valeur)
 	print("Source :",src)
 	print("Destination :",dst)
+
+	if dst ==IP_propre() and dst!="10.147.17.255":
+            if valeur>0 :
+                nouveau_paquet = generation_paquet(int(valeur)-1)
+                envoie(nouveau_paquet)
+            elif valeur==0:
+                print("FLAN")
 	# On crée le nouveau paquet 
 	#nouveau_paquet = generation_paquet(int(valeur)-1)
 
