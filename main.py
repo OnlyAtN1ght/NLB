@@ -29,7 +29,7 @@ LISTE_IP =[
 PORT = 50268
 
 # INTERFACE DE ZTB
-INTERFACE_NAME = "feth4232"
+INTERFACE_NAME = "ztbpan3637b"
 
 
 class GamePacket(Packet):
@@ -54,7 +54,7 @@ def trouve_destinataire():
 
 def envoie(paquet):
 	destinataire = trouve_destinataire()
-	destinataire = "10.147.17.190"
+	destinataire = "10.147.17.5"
 	print(destinataire)
 
 	# On construit le paquet
@@ -68,12 +68,12 @@ def callback_paquet_recu(paquet):
 	paquet_class.show()
 
 def attente_paquet():
-	# On attend 
+	# On attend
 	print("En attente d'un paquet : ")
-	sniff(filter = "port {PORT}".format(PORT = PORT), prn = callback_paquet_recu)
+	sniff(filter = "port {PORT}".format(PORT = PORT),iface = "ztbpan3637", prn = callback_paquet_recu)
 
 def main():
-	# Main 
+	# Main
 	if True:#IP_propre() == IP_serveur:
 		paquet_debut = generation_paquet_depart()
 		envoie(paquet_debut)
