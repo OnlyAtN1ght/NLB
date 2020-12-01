@@ -11,6 +11,7 @@ II  : Fonctionnement
 III : Partie technique
 
 I : Introduction
+
   Dans le cadre de l'enseignement de réseaux à l'ENSIBS, nous,
 étudiants en Cybersécurité du Logiciel A1 TP1, devons implémenter
 un protocole afin de faire jouer plusieurs pc entre eux. Un paquet
@@ -18,12 +19,14 @@ sera envoyé sur le réseau et devra être renvoyé sur les autres pc
 du réseau jusqu'à la fin du jeu.
 
 II : Fontionnement
+
   Nous créons un protocole de la couche applicatif de du modèle OSI.
 Ce protocole se servira du protocole UDP pour la couche transport, 
 et le protocole IP pour la couche réseau. Nous utilisons notre 
 protocole avec la librairie Scapy Python.
 
 III : Partie technique
+
   Le paquet contient un champ IntField nommé compteur permettant
 de compter le nombre de rebonds restants à faire pendant le jeu.
 Au début, un poste est désigné comme "principal" et envoi un premier
