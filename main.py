@@ -3,7 +3,7 @@ import random
 
 #test
 IP_serveur = "0.0.0.0"
-COMPTEUR = 100
+COMPTEUR = 777
 TIMEOUT = 200
 LISTE_IP =[
 	"10.147.17.6",
@@ -30,11 +30,12 @@ LISTE_IP =[
 PORT = 50268
 
 # INTERFACE DE ZTB
-INTERFACE_NAME = "ztbpan3637"
-INTERFACE_NAME = conf.iface
+
+INTERFACE_NAME = "ZeroTier One [8850338390ee78ef]"
 
 
-SCORE = 0
+#global(SCORE)
+SCORE=0
 
 
 class GamePacket(Packet):
@@ -59,7 +60,7 @@ def trouve_destinataire():
 
 def envoie(paquet):
 	destinataire = trouve_destinataire()
-	destinataire = "10.147.17.5"
+	destinataire = "10.147.17.190"
 	print(destinataire)
 
 	# On construit le paquet
@@ -71,18 +72,22 @@ def envoie(paquet):
 def callback_paquet_recu(paquet):
 	paquet_class = GamePacket(paquet[Raw].load)
 	paquet_class.show()
-
+        
 	# On
-	SCORE += 1
+	#SCORE += 1
 
 	# On cherche la valeur actuelle du counter contenue dans le paquet
-	valeur = getattr(paquet_class["IP"], "compteur")
-
+	src = paquet[IP].src
+	dst = paquet[IP].dst
+	valeur = getattr(paquet_class["GamePacket"], "compteur")
+	print(valeur)
+	print("Source :",src)
+	print("Destination :",dst)
 	# On crée le nouveau paquet 
-	nouveau_paquet = generation_paquet(int(valeur)-1)
+	#nouveau_paquet = generation_paquet(int(valeur)-1)
 
 	# On renvoie le nouveau paquet 
-	envoie(nouveau_paquet)
+	#envoie(nouveau_paquet)
 
 
 
