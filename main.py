@@ -6,27 +6,12 @@ IP_serveur = "0.0.0.0"
 COMPTEUR = 777
 TIMEOUT = 200
 LISTE_IP =[
-	"10.147.17.6",
-	"10.147.17.12",
-	"10.147.17.116",
-	"10.147.17.79",
-	"10.147.17.69",
-	"10.147.17.7",
-	"10.147.17.163",
-	"10.147.17.209",
-	"10.147.17.32",
-	"10.147.17.204",
-	"10.147.17.119",
-	"10.147.17.130",
-	"10.147.17.154",
-	"10.147.17.183",
-	"10.147.17.160",
-	"10.147.17.67",
-	"10.147.17.16",
-	"10.147.17.155",
 	"10.147.17.190",
-	"10.147.17.75",
-	"10.147.17.80"]
+        "10.147.17.75",
+        "10.147.17.154",
+        "10.147.17.119",
+        "10.147.17.57",
+        "10.147.17.69"]
 PORT = 50268
 
 # INTERFACE DE ZTB
@@ -86,6 +71,7 @@ def callback_paquet_recu(paquet):
             if valeur>0 :
                 nouveau_paquet = generation_paquet(int(valeur)-1)
                 envoie(nouveau_paquet)
+                print("Envoie")
             elif valeur==0:
                 print("FLAN")
 	# On crée le nouveau paquet 
@@ -103,13 +89,8 @@ def attente_paquet():
 
 def main():
 	# Main
-	if True:#IP_propre() == IP_serveur:
-		paquet_debut = generation_paquet()
-		envoie(paquet_debut)
-
-
-
 	attente_paquet()
+	
 
 
 
