@@ -3,3 +3,13 @@
                         Author:   CyberLog A1 TP1
                           Date:   December 2020
                        Version:   1.0
+                       
+I  : Introduction
+II : Fonctionnement
+
+I : Introduction
+  Dans le cadre de l'enseignement de réseaux à l'ENSIBS, nous,
+étudiants en Cybersécurité du Logiciel A1 TP1, devons implémenter
+un protocole afin de faire jouer plusieurs pc entre eux. Un paquet
+sera envoyé sur le réseau et devra être renvoyé sur les autres pc 
+du réseau jusqu'à la fin du jeu.
