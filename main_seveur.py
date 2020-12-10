@@ -2,7 +2,6 @@ from scapy.all import *
 import random
 from sys import exit
 
-#test
 IP_serveur = "10.147.17.190"
 COMPTEUR = 100
 TIMEOUT = 200
