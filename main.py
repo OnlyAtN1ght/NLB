@@ -4,6 +4,7 @@ import random
 #test
 IP_serveur = "0.0.0.0"
 COMPTEUR = 100
+FLAG = 0
 TIMEOUT = 200
 LISTE_IP =[
 	"10.147.17.190", #Lilian
@@ -16,24 +17,23 @@ LISTE_IP =[
 PORT = 50268
 
 # INTERFACE DE ZTB
-INTERFACE_NAME = "ztbpan3637"
-#INTERFACE_NAME = conf.iface
-#INTERFACE_NAME = "ZeroTier One [8850338390ee78ef]"
+INTERFACE_NAME = "ztbpan3637"                          #(Pour Unix)
+#INTERFACE_NAME = "ZeroTier One [8850338390ee78ef]"    #(Pour Windows)
 
 global score
 
 class GamePacket(Packet):
     name = "GamePacket"
-    fields_desc=[ IntField("compteur",0)]
-
-def generation_paquet(compteur = COMPTEUR):
-	# Fonction qui genere le premier paquet du jeu
-	return GamePacket(compteur = compteur)
+    fields_desc=[IntField("compteur",0), IntField("flag", "0")]
 
 def IP_propre():
 	# Renvoie l'IP
-	#return get_if_addr(IFACES.dev_from_name(INTERFACE_NAME)) (LAISSE CA STP) 
-	return get_if_addr(INTERFACE_NAME)
+	#return get_if_addr(IFACES.dev_from_name(INTERFACE_NAME))         #(Pour Windows)
+	return get_if_addr(INTERFACE_NAME)                                #(Pour Unix)
+
+def generation_paquet(compteur = COMPTEUR, flag = FLAG):
+	# Fonction qui genere le premier paquet du jeu
+	return GamePacket(compteur = compteur)
 
 def trouve_destinataire():
 	# Renvoie l'IP d'un des destinataires differents de celle de l'emeteur
@@ -45,12 +45,12 @@ def trouve_destinataire():
 
 def envoie(paquet):
 	destinataire = trouve_destinataire()
-	#destinataire = "10.147.17.190"
 	print(destinataire)
 
 	# On construit le paquet
 	paquet_construit = IP(dst=destinataire)/UDP(dport = PORT,sport = 15)/paquet
 	paquet_construit.show()
+	
 	# Envoie du paquet
 	send(paquet_construit)
 
@@ -64,49 +64,37 @@ def callback_paquet_recu(paquet):
 	src = paquet[IP].src
 	dst = paquet[IP].dst
 	valeur = getattr(paquet_class["GamePacket"], "compteur")
+	flag = getattr(paquet_class["GamePacket"], "flag")
 	print(valeur)
 	print("Source :",src)
 	print("Destination :",dst)
 
-	if dst ==IP_propre() and dst!="10.147.17.255":
-            if valeur > 0 :
-                nouveau_paquet = generation_paquet(int(valeur)-1)
-                envoie(nouveau_paquet)
-                print("Envoie")
-            elif valeur==0:
-                print("FLAN")
-	# On crée le nouveau paquet 
-	#nouveau_paquet = generation_paquet(int(valeur)-1)
-
-	# On renvoie le nouveau paquet 
-	#envoie(nouveau_paquet)
-
+	if (dst == IP_propre() and dst!="10.147.17.255") or flag =! 0:
+            if valeur > 0 and flag == 0:
+            	nouveau_paquet = generation_paquet(int(valeur)-1, 0)
+            	envoie(nouveau_paquet)
+            	print("Envoie")
+            elif valeur == 0 and flag == 0:
+            	end_paquet = GamePacket(compteur = 0, flag = 1)
+            	send(IP(dst=IP_serveur)/UDP(dport = PORT,sport = 15)/end_paquet)
+            elif flag == 2:
+            	score_paquet = GamePacket(compteur = score, flag = 3)
+            	send(IP(dst=IP_serveur)/UDP(dport = PORT,sport = 15)/score_paquet)
+            	
 
 
 def attente_paquet():
 	# On attend
-	# INTERFACE_NAME = "ZeroTier One [8850338390ee78ef]"
 	print("En attente d'un paquet : ")
 	sniff(filter = "port {PORT}".format(PORT = PORT),iface = INTERFACE_NAME, prn = callback_paquet_recu)
 
 def main():
-  score = 0
-  if True:#IP_propre() == IP_serveur:
-    paquet_debut = generation_paquet()
-    envoie(paquet_debut)
-  attente_paquet()
+	score = 0
+	if True:#IP_propre() == IP_serveur:
+		paquet_debut = generation_paquet()
+		envoie(paquet_debut)
+	attente_paquet()
 
 
 if __name__ == '__main__':
 	main()
-
-
-# TODO : interfaces reseaux
-
-"""
-Champs :
-nom du paquet : “GamePacket”
-ttl ? (à choisir : propose 30)
-src : adresse IP source (pas besoin sur scapy)
-dst : adresse IP destination (pas besoin)
-"""
