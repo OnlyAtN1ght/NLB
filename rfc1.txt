@@ -31,8 +31,11 @@ III : Partie technique
 il permet de compter le nombre de rebonds restants à faire pendant le jeu. Le
 second champ de type IntField également correspond au flag, cela nous permet de
 différencier différentes phases de fonctionnement. 
-Si le flag vaut 0 cela signifie qu'on fait un envoie de balle.
-Si le flag vaut 1 cela signifie qu'on a olus de rebond disponible.
+Si le flag vaut 0 cela signifie qu'on fait un envoi de balle.
+Si le flag vaut 1 cela signifie qu'on a plus de rebond disponible (on l'indique au serveur).
+Si le flag vaut 2 cela signifie qu'on demande notre score.
+Si le flag vaut 3 cela signifie qu'on envoie notre score.
+Si le flag vaut 4 cela signifie qu'on annonce le vainqueur.
 Au début, un poste est désigné comme "principal" et envoi un premier
 paquet à un autre poste aléatoire, avec le compteur initialisé.
 Le second pc recoit le paquet, décrémente le compteur, incrémente son 
