@@ -84,7 +84,7 @@ def recup_score(paquet = 0):
 def ask_score():
 	# Fonction qui crée le paquet de demande de score et qui l'envoie 
 	paquet_ask = GamePacket(compteur = 0, flag = 2)
-	envoie(paquet_ask"10.147.17.255",)
+	envoie(paquet_ask,"10.147.17.255")
 
 	# On passe a l'étape de récuperation des scores
 	recup_score()
