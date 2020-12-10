@@ -30,10 +30,18 @@ III : Partie technique
   Le paquet contient deux champs. Le premier est nommé compteur de type IntField
 il permet de compter le nombre de rebonds restants à faire pendant le jeu. Le
 second champ de type IntField également correspond au flag, cela nous permet de
-différencier différentes phases de fonctionnement. 
-Si le flag vaut 0 cela signifie qu'on fait un envoi de balle.
+différencier différentes phases de fonctionnement.
+
+Si le flag vaut 0 cela signifie qu'on fait un envoi de balle. 
+Le compteur spécifie le nombre de rebond restant.
+
 Si le flag vaut 1 cela signifie qu'on a plus de rebond disponible (on l'indique au serveur).
+
 Si le flag vaut 2 cela signifie qu'on demande notre score.
+
 Si le flag vaut 3 cela signifie qu'on envoie notre score.
+Le compteur contient notre score.
+
 Si le flag vaut 4 cela signifie qu'on annonce le vainqueur.
+Le compteur contient la position de l'adresse IP gagnante dans la liste d'adresses IP.
 
