@@ -27,8 +27,12 @@ protocole avec la librairie Scapy Python.
 
 III : Partie technique
 
-  Le paquet contient un champ IntField nommé compteur permettant
-de compter le nombre de rebonds restants à faire pendant le jeu.
+  Le paquet contient deux champs. Le premier est nommé compteur de type IntField
+il permet de compter le nombre de rebonds restants à faire pendant le jeu. Le
+second champ de type IntField également correspond au flag, cela nous permet de
+différencier différentes phases de fonctionnement. 
+Si le flag vaut 0 cela signifie qu'on fait un envoie de balle.
+Si le flag vaut 1 cela signifie qu'on a olus de rebond disponible.
 Au début, un poste est désigné comme "principal" et envoi un premier
 paquet à un autre poste aléatoire, avec le compteur initialisé.
 Le second pc recoit le paquet, décrémente le compteur, incrémente son 
