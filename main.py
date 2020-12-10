@@ -33,7 +33,7 @@ def IP_propre():
 
 def generation_paquet(compteur = COMPTEUR, flag = FLAG):
 	# Fonction qui genere le premier paquet du jeu
-	return GamePacket(compteur = compteur)
+	return GamePacket(compteur = compteur, flag = FLAG)
 
 def trouve_destinataire():
 	# Renvoie l'IP d'un des destinataires differents de celle de l'emeteur
@@ -96,11 +96,7 @@ def attente_paquet():
 
 def main():
 	score = 0
-	if True:#IP_propre() == IP_serveur:
-		paquet_debut = generation_paquet()
-		envoie(paquet_debut)
 	attente_paquet()
-
 
 if __name__ == '__main__':
 	main()
