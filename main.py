@@ -69,7 +69,7 @@ def callback_paquet_recu(paquet):
 	print("Source :",src)
 	print("Destination :",dst)
 
-	if (dst == IP_propre() and dst!="10.147.17.255") or flag =! 0:
+	if (dst == IP_propre() and dst!="10.147.17.255") or flag != 0:
             if valeur > 0 and flag == 0:
             	print("Paquet recu de compteur > 0")
             	nouveau_paquet = generation_paquet(int(valeur)-1, 0)
