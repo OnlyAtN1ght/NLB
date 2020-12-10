@@ -13,6 +13,7 @@ class GamePacket(Packet):
 
 def IP_propre():
 	# Renvoie l'IP de la machine qui lance le porgramme 
+	# return get_if_addr(IFACES.dev_from_name(INTERFACE_NAME))         #(Pour Windows)
 	return get_if_addr(INTERFACE_NAME)
 
 def trouve_destinataire_aleatoire():
