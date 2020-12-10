@@ -3,18 +3,16 @@ import random
 
 #test
 IP_serveur = "0.0.0.0"
-COMPTEUR = 777
+COMPTEUR = 100
 TIMEOUT = 200
 LISTE_IP =[
-	"10.147.17.190",
-        "10.147.17.75",
-        "10.147.17.154",
-        "10.147.17.119",
-        "10.147.17.57",
-        "10.147.17.69"]
-
-#"10.147.17.69","10.147.17.154",
-
+	"10.147.17.190", #Lilian
+        "10.147.17.75",  #Thomas
+        "10.147.17.114", #Simon
+        "10.147.17.69",  #Camille
+        "10.147.17.32",  #Alan
+        "10.147.17.154"] #Elouan
+        
 PORT = 50268
 
 # INTERFACE DE ZTB
@@ -22,9 +20,7 @@ INTERFACE_NAME = "ztbpan3637"
 #INTERFACE_NAME = conf.iface
 #INTERFACE_NAME = "ZeroTier One [8850338390ee78ef]"
 
-#global(SCORE)
-SCORE=0
-
+global score
 
 class GamePacket(Packet):
     name = "GamePacket"
@@ -49,7 +45,7 @@ def trouve_destinataire():
 
 def envoie(paquet):
 	destinataire = trouve_destinataire()
-	destinataire = "10.147.17.190"
+	#destinataire = "10.147.17.190"
 	print(destinataire)
 
 	# On construit le paquet
@@ -62,8 +58,7 @@ def callback_paquet_recu(paquet):
 	paquet_class = GamePacket(paquet[Raw].load)
 	paquet_class.show()
         
-	# On
-	#SCORE += 1
+	score = score + 1
 
 	# On cherche la valeur actuelle du counter contenue dans le paquet
 	src = paquet[IP].src
@@ -74,7 +69,7 @@ def callback_paquet_recu(paquet):
 	print("Destination :",dst)
 
 	if dst ==IP_propre() and dst!="10.147.17.255":
-            if valeur>0 :
+            if valeur > 0 :
                 nouveau_paquet = generation_paquet(int(valeur)-1)
                 envoie(nouveau_paquet)
                 print("Envoie")
@@ -95,23 +90,11 @@ def attente_paquet():
 	sniff(filter = "port {PORT}".format(PORT = PORT),iface = INTERFACE_NAME, prn = callback_paquet_recu)
 
 def main():
-	# Main
-	attente_paquet()
-	
-
-
-
-
-if __name__ == '__main__':
-	main()propre() == IP_serveur:
-		paquet_debut = generation_paquet()
-		envoie(paquet_debut)
-
-
-
-	attente_paquet()
-
-
+  score = 0
+  if True:#IP_propre() == IP_serveur:
+    paquet_debut = generation_paquet()
+    envoie(paquet_debut)
+  attente_paquet()
 
 
 if __name__ == '__main__':
