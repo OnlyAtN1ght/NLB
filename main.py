@@ -83,7 +83,7 @@ def callback_paquet_recu(paquet):
 
 		# Cas où le serveur envoie le vainqueur 
 		elif flag == 4:
-			print("Le vainqueur est", LISTE_IP[valeur])
+			print("\nLe vainqueur est", LISTE_IP[valeur])
 			exit()
 
 def attente_paquet():
