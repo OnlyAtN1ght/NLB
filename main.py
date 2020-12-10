@@ -59,7 +59,7 @@ def callback_paquet_recu(paquet):
 	if (dst == IP_propre() and dst != "10.147.17.255") or flag == 2 or flag == 4:
 		# Cas normal du jeu 
 		if valeur > 0 and flag == 0:
-			nouveau_paquet = GamePacket(int(valeur)-1, 0)
+			nouveau_paquet = GamePacket(compteur = int(valeur)-1, flag = 0)
 			SCORE_PERSO = SCORE_PERSO + 1
 			print("Mon score est", SCORE_PERSO)
 			envoie(nouveau_paquet)
