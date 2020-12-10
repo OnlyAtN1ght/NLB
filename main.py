@@ -2,12 +2,12 @@ from scapy.all import *
 import random
 
 #test
-IP_serveur = "0.0.0.0"
+IP_serveur = "10.147.17.190"
 COMPTEUR = 100
 FLAG = 0
 TIMEOUT = 200
 LISTE_IP =[
-	"10.147.17.190", #Lilian
+		"10.147.17.190", #Lilian
         "10.147.17.75",  #Thomas
         "10.147.17.114", #Simon
         "10.147.17.69",  #Camille
@@ -59,7 +59,7 @@ def callback_paquet_recu(paquet):
 	paquet_class.show()
         
 	score = score + 1
-
+	print("Mon score est ", score)
 	# On cherche la valeur actuelle du counter contenue dans le paquet
 	src = paquet[IP].src
 	dst = paquet[IP].dst
@@ -71,17 +71,23 @@ def callback_paquet_recu(paquet):
 
 	if (dst == IP_propre() and dst!="10.147.17.255") or flag =! 0:
             if valeur > 0 and flag == 0:
+            	print("Paquet recu de compteur > 0")
             	nouveau_paquet = generation_paquet(int(valeur)-1, 0)
             	envoie(nouveau_paquet)
-            	print("Envoie")
+            	print("Envoie paquet avec compteur - 1")
             elif valeur == 0 and flag == 0:
+            	print("Paquet de fin recu")
             	end_paquet = GamePacket(compteur = 0, flag = 1)
             	send(IP(dst=IP_serveur)/UDP(dport = PORT,sport = 15)/end_paquet)
+            	print("Paquet d'annonce de fin au serveur envoyer")
             elif flag == 2:
+            	print("Paquet de demande de score recu")
             	score_paquet = GamePacket(compteur = score, flag = 3)
             	send(IP(dst=IP_serveur)/UDP(dport = PORT,sport = 15)/score_paquet)
-            	
-
+            	print("Paquet d'annonce de score envoyé")
+            elif flag == 4:
+            	print("Paquet d'annonce de vainqueur recu")
+            	pass
 
 def attente_paquet():
 	# On attend
