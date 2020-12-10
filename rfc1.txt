@@ -16,14 +16,24 @@ I : Introduction
 étudiants en Cybersécurité du Logiciel A1 TP1, devons implémenter
 un protocole afin de faire jouer plusieurs pc entre eux. Un paquet
 sera envoyé sur le réseau et devra être renvoyé sur les autres pc 
-du réseau jusqu'à la fin du jeu.
+du réseau jusqu'à la fin du jeu. Une fois le jeu terminé, chaque 
+participant recevra un message contenant le vainqueur.
 
 II : Fontionnement
 
   Nous créons un protocole de la couche applicatif de du modèle OSI.
 Ce protocole se servira du protocole UDP pour la couche transport, 
 et le protocole IP pour la couche réseau. Nous utilisons notre 
-protocole avec la librairie Scapy Python.
+protocole avec la librairie Scapy Python. Pour commencer le jeu,
+le serveur va envoyer une première fois la balle à un participant. Ce 
+dernier va incrémenter son score personnel et renvoyer à son tour la 
+balle à laquelle on va décrémenter le compteur. Chaque particpant sera 
+tiré au hasard dans une liste d'adresses IP définie au préalable. Le 
+jeu se termine lorsque le compteur de la balle sera à 0. A ce moment
+le serveur envoie une requête à chaque participant pour connaitre le 
+score de chacun. Puis une fois tout les scores reçus, le serveur tri 
+les scores et envoie un paquet contenant l'indexe du participant à 
+chacun.
 
 III : Partie technique
 
