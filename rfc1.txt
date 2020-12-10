@@ -36,9 +36,4 @@ Si le flag vaut 1 cela signifie qu'on a plus de rebond disponible (on l'indique 
 Si le flag vaut 2 cela signifie qu'on demande notre score.
 Si le flag vaut 3 cela signifie qu'on envoie notre score.
 Si le flag vaut 4 cela signifie qu'on annonce le vainqueur.
-Au début, un poste est désigné comme "principal" et envoi un premier
-paquet à un autre poste aléatoire, avec le compteur initialisé.
-Le second pc recoit le paquet, décrémente le compteur, incrémente son 
-score et recréer un paquet et l'envoi à un autre poste aléatoire.
-Le jeu se termine lorsque le compteur atteint 0. Alors les pc envoient
-leur score au poste principal qui annonce le gagnant.
+
