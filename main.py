@@ -68,7 +68,7 @@ def callback_paquet_recu(paquet):
 	print("Source :",src)
 	print("Destination :",dst)
 
-	if (dst == IP_propre() and dst!="10.147.17.255") or flag != 0:
+	if (dst == IP_propre() and dst != "10.147.17.255") or flag != 0:
 		if valeur > 0 and flag == 0:
 			print("Paquet recu de compteur > 0")
 			nouveau_paquet = generation_paquet(int(valeur)-1, 0)
@@ -83,7 +83,7 @@ def callback_paquet_recu(paquet):
 			print("Paquet d'annonce de fin au serveur envoyer")
 		elif flag == 2:
 			print("Paquet de demande de score recu")
-			sleep(2)
+			sleep(LISTE_IP.index(IP_propre()))
 			score_paquet = GamePacket(compteur = score, flag = 3)
 			send(IP(dst=IP_serveur)/UDP(dport = PORT,sport = 15)/score_paquet)
 			print("Paquet d'annonce de score envoyé")
