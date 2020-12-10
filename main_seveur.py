@@ -8,19 +8,18 @@ TIMEOUT = 200
 FLAG = 0
 LISTE_IP =[
 		"10.147.17.190", #Lilian
-		"10.147.17.75",  #Thomas
-		"10.147.17.114", #Simon
-		"10.147.17.69",  #Camille
-		"10.147.17.32",  #Alan
-		"10.147.17.154"] #Elouan
+		#"10.147.17.75",  #Thomas
+		"10.147.17.114" #Simon
+		#"10.147.17.69",  #Camille
+		#"10.147.17.32",  #Alan
+		#"10.147.17.154"  #Elouan
+		] 
 PORT = 50268
 
 # INTERFACE DE ZTB
 INTERFACE_NAME = "ztbpan3637"                          #(Pour Unix)
 #INTERFACE_NAME = "ZeroTier One [8850338390ee78ef]"    #(Pour Windows)
 
-global score
-global score_final
 score_final = {}
 score = 0
 
@@ -56,12 +55,15 @@ def envoie(paquet):
 	send(paquet_construit)
 
 def calcul_vainqueur():
+	global score_final
 	print(score_final)
 	score_final_table = sorted(score_final.items(), key = score_final.get, reverse = True)
 	print(score_final_table)
 	print("Le vainqueur est : ", score_final.key(score_final_table[0]))
 
 def recup_score(paquet = 0):
+	global score_final
+	global score
 	if paquet != 0:
 		paquet_class = GamePacket(paquet[Raw].load)
 		score_final[paquet[IP].src] = getattr(paquet_class["GamePacket"], "compteur")
@@ -77,6 +79,7 @@ def ask_score():
 	recup_score()
 
 def callback_paquet_recu(paquet):
+	global score
 	paquet_class = GamePacket(paquet[Raw].load)
 	paquet_class.show()
 

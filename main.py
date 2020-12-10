@@ -1,7 +1,6 @@
 from scapy.all import *
 import random
 
-#test
 IP_serveur = "10.147.17.190"
 COMPTEUR = 100
 FLAG = 0
@@ -15,12 +14,12 @@ LISTE_IP =[
         "10.147.17.154"] #Elouan
         
 PORT = 50268
+	
+score = 0
 
 # INTERFACE DE ZTB
 INTERFACE_NAME = "ztbpan3637"                          #(Pour Unix)
 #INTERFACE_NAME = "ZeroTier One [8850338390ee78ef]"    #(Pour Windows)
-
-global score
 
 class GamePacket(Packet):
     name = "GamePacket"
@@ -55,6 +54,7 @@ def envoie(paquet):
 	send(paquet_construit)
 
 def callback_paquet_recu(paquet):
+	global score
 	paquet_class = GamePacket(paquet[Raw].load)
 	paquet_class.show()
         
@@ -95,7 +95,6 @@ def attente_paquet():
 	sniff(filter = "port {PORT}".format(PORT = PORT),iface = INTERFACE_NAME, prn = callback_paquet_recu)
 
 def main():
-	score = 0
 	attente_paquet()
 
 if __name__ == '__main__':
