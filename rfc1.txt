@@ -27,7 +27,10 @@ protocole avec la librairie Scapy Python.
 
 III : Partie technique
 
-  Le paquet contient deux champs. Le premier est nommé compteur de type IntField
+On conserve une liste des adresses IP disponibles.
+On spécifie entre autre l'interface utilisée et le nombre de rebond.
+
+Le paquet contient deux champs. Le premier est nommé compteur de type IntField
 il permet de compter le nombre de rebonds restants à faire pendant le jeu. Le
 second champ de type IntField également correspond au flag, cela nous permet de
 différencier différentes phases de fonctionnement.
@@ -44,4 +47,5 @@ Le compteur contient notre score.
 
 Si le flag vaut 4 cela signifie qu'on annonce le vainqueur.
 Le compteur contient la position de l'adresse IP gagnante dans la liste d'adresses IP.
+
 
