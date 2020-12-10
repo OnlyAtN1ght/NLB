@@ -58,6 +58,9 @@ def calcul_vainqueur():
 	print(score_final)
 	score_final_table = sorted(score_final, key = score_final.get, reverse = True)
 	print("Le vainqueur est : ", score_final_table[0])
+	vainqueur = GamePacket(compteur = LISTE_IP.index(score_final_table[0]), flag = 4)
+	vainqueur_build = IP(dst="10.147.17.255")/UDP(dport = PORT,sport = 15)/vainqueur
+	send(vainqueur_build)
 	exit()
 
 def recup_score(paquet = 0):
