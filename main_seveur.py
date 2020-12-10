@@ -1,5 +1,6 @@
 from scapy.all import *
 import random
+from sys import exit
 
 #test
 IP_serveur = "10.147.17.190"
@@ -8,11 +9,11 @@ TIMEOUT = 200
 FLAG = 0
 LISTE_IP =[
 		"10.147.17.190", #Lilian
-		#"10.147.17.75",  #Thomas
-		"10.147.17.114" #Simon
+		"10.147.17.75",  #Thomas
+		"10.147.17.114", #Simon
 		#"10.147.17.69",  #Camille
-		#"10.147.17.32",  #Alan
-		#"10.147.17.154"  #Elouan
+		"10.147.17.32",  #Alan
+		"10.147.17.154"  #Elouan
 		] 
 PORT = 50268
 
@@ -45,11 +46,9 @@ def trouve_destinataire():
 
 def envoie(paquet):
 	destinataire = trouve_destinataire()
-	print(destinataire)
 
 	# On construit le paquet
 	paquet_construit = IP(dst=destinataire)/UDP(dport = PORT,sport = 15)/paquet
-	paquet_construit.show()
 	
 	# Envoie du paquet
 	send(paquet_construit)
@@ -58,8 +57,8 @@ def calcul_vainqueur():
 	global score_final
 	print(score_final)
 	score_final_table = sorted(score_final, key = score_final.get, reverse = True)
-	print(score_final_table)
 	print("Le vainqueur est : ", score_final_table[0])
+	exit()
 
 def recup_score(paquet = 0):
 	global score_final
@@ -76,27 +75,29 @@ def ask_score():
 	ask = GamePacket(compteur = 0, flag = 2)
 	ask_build = IP(dst="10.147.17.255")/UDP(dport = PORT,sport = 15)/ask
 	send(ask_build)
+	print("Envoie flag 2")
 	recup_score()
 
 def callback_paquet_recu(paquet):
+	print("\n\n\n")
 	global score
 	paquet_class = GamePacket(paquet[Raw].load)
-	paquet_class.show()
 
 	# On cherche la valeur actuelle du counter contenue dans le paquet
 	src = paquet[IP].src
 	dst = paquet[IP].dst
 	valeur = getattr(paquet_class["GamePacket"], "compteur")
 	flag = getattr(paquet_class["GamePacket"], "flag")
-	print(valeur)
+	print("Compteur reçu :",valeur)
+	print("Flag reçu :", flag)
 	print("Source :",src)
 	print("Destination :",dst)
-	print("Mon score est ", score)
 
 	if dst == IP_propre() and dst!="10.147.17.255" and flag == 0 and valeur > 0:
 		nouveau_paquet = generation_paquet(int(valeur)-1)
 		envoie(nouveau_paquet)
 		score = score + 1
+		print("Mon score est", score)
 		print("Envoie")
 	
 	elif dst == IP_propre() and dst!="10.147.17.255" and ((flag == 0 and valeur == 0) or flag == 1):

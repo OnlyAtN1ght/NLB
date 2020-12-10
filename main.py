@@ -1,5 +1,7 @@
 from scapy.all import *
 import random
+from sys import exit
+from time import sleep
 
 IP_serveur = "10.147.17.190"
 COMPTEUR = 100
@@ -7,11 +9,11 @@ FLAG = 0
 TIMEOUT = 200
 LISTE_IP =[
 		"10.147.17.190", #Lilian
-		#"10.147.17.75",  #Thomas
-		"10.147.17.114" #Simon
+		"10.147.17.75",  #Thomas
+		"10.147.17.114", #Simon
 		#"10.147.17.69",  #Camille
-		#"10.147.17.32",  #Alan
-		#"10.147.17.154"  #Elouan
+		"10.147.17.32",  #Alan
+		"10.147.17.154"  #Elouan
 		] 
 PORT = 50268
 	
@@ -44,16 +46,15 @@ def trouve_destinataire():
 
 def envoie(paquet):
 	destinataire = trouve_destinataire()
-	print(destinataire)
 
 	# On construit le paquet
 	paquet_construit = IP(dst=destinataire)/UDP(dport = PORT,sport = 15)/paquet
-	paquet_construit.show()
 	
 	# Envoie du paquet
 	send(paquet_construit)
 
 def callback_paquet_recu(paquet):
+	print("\n\n\n")
 	global score
 	paquet_class = GamePacket(paquet[Raw].load)
 
@@ -82,12 +83,13 @@ def callback_paquet_recu(paquet):
 			print("Paquet d'annonce de fin au serveur envoyer")
 		elif flag == 2:
 			print("Paquet de demande de score recu")
+			sleep(2)
 			score_paquet = GamePacket(compteur = score, flag = 3)
 			send(IP(dst=IP_serveur)/UDP(dport = PORT,sport = 15)/score_paquet)
 			print("Paquet d'annonce de score envoyé")
 		elif flag == 4:
 			print("Paquet d'annonce de vainqueur recu")
-			pass
+			exit()
 
 def attente_paquet():
 	# On attend
