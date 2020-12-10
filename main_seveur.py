@@ -57,9 +57,9 @@ def envoie(paquet):
 def calcul_vainqueur():
 	global score_final
 	print(score_final)
-	score_final_table = sorted(score_final.items(), key = score_final.get, reverse = True)
+	score_final_table = sorted(score_final, key = score_final.get, reverse = True)
 	print(score_final_table)
-	print("Le vainqueur est : ", score_final.key(score_final_table[0]))
+	print("Le vainqueur est : ", score_final_table[0])
 
 def recup_score(paquet = 0):
 	global score_final
@@ -73,7 +73,7 @@ def recup_score(paquet = 0):
 	calcul_vainqueur()
 
 def ask_score():
-	ask = GamePacket(compteur = -1, flag = 2)
+	ask = GamePacket(compteur = 0, flag = 2)
 	ask_build = IP(dst="10.147.17.255")/UDP(dport = PORT,sport = 15)/ask
 	send(ask_build)
 	recup_score()
@@ -91,12 +91,12 @@ def callback_paquet_recu(paquet):
 	print(valeur)
 	print("Source :",src)
 	print("Destination :",dst)
-	score = score + 1
 	print("Mon score est ", score)
 
 	if dst == IP_propre() and dst!="10.147.17.255" and flag == 0 and valeur > 0:
 		nouveau_paquet = generation_paquet(int(valeur)-1)
 		envoie(nouveau_paquet)
+		score = score + 1
 		print("Envoie")
 	
 	elif dst == IP_propre() and dst!="10.147.17.255" and ((flag == 0 and valeur == 0) or flag == 1):

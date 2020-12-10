@@ -58,7 +58,6 @@ def callback_paquet_recu(paquet):
 	paquet_class = GamePacket(paquet[Raw].load)
 	paquet_class.show()
         
-	score = score + 1
 	print("Mon score est ", score)
 	# On cherche la valeur actuelle du counter contenue dans le paquet
 	src = paquet[IP].src
@@ -73,6 +72,7 @@ def callback_paquet_recu(paquet):
             if valeur > 0 and flag == 0:
             	print("Paquet recu de compteur > 0")
             	nouveau_paquet = generation_paquet(int(valeur)-1, 0)
+            	score = score + 1
             	envoie(nouveau_paquet)
             	print("Envoie paquet avec compteur - 1")
             elif valeur == 0 and flag == 0:
