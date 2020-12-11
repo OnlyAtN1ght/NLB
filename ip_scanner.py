@@ -5,7 +5,6 @@ from constants import *
 def network_discovery():
    net = NETWORK
    net1= net.split('.')
-
    net2 = ".".join(net1) + '.'
    oper = system()
 
