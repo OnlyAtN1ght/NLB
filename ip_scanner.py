@@ -5,8 +5,14 @@ from constants import *
 def network_discovery():
    net = NETWORK
    net1= net.split('.')
+<<<<<<< HEAD
 
    net2 = ".".join(net1) + '.'
+=======
+   a = '.'
+
+   net2 = net1[0] + a + net1[1] + a + net1[2] + a
+>>>>>>> main
    oper = system()
 
    liste_ip = []
