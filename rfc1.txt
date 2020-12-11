@@ -3,12 +3,6 @@
                         Author:   CyberLog A1 TP1
                           Date:   December 2020
                        Version:   1.0
-                       
-I   : Introduction
-
-II  : Fonctionnement
-
-III : Partie technique
 
 I : Introduction
 
@@ -37,7 +31,7 @@ chacun.
 
 III : Partie technique
 
-On conserve une liste des adresses IP disponibles.
+  On conserve une liste des adresses IP disponibles.
 On spécifie entre autre l'interface utilisée et le nombre de rebond.
 
 Le paquet contient deux champs. Le premier est nommé compteur de type IntField
