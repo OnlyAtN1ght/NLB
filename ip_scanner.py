@@ -1,6 +1,6 @@
 from os import popen
 from platform import system
-from constants import *
+from constants import NETWORK
 
 def network_discovery():
    net = NETWORK
