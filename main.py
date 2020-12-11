@@ -4,8 +4,10 @@ from sys import exit
 from time import sleep
 
 from constants import *
-	
+from ip_scanner import *
+
 SCORE_PERSO = 0
+LISTE_IP = network_discovery()
 
 class GamePacket(Packet):
 	name = "GamePacket"

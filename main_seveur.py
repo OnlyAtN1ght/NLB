@@ -3,9 +3,11 @@ import random
 from sys import exit
 
 from constants import *
+from ip_scanner import *
 
 score_final = {}
 SCORE_PERSO = 0
+LISTE_IP = network_discovery()
 
 class GamePacket(Packet):
 	name = "GamePacket"
