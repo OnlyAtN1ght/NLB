@@ -25,7 +25,6 @@ def network_discovery():
       addr = net2 + str(ip)
       comm = ping1 + addr
       response = popen(comm)
-      print(addr, "test...")
       for line in response.readlines():
          if (line.find(flag) != -1):
             liste_ip.append(addr)
