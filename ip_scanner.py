@@ -1,33 +1,34 @@
-from os import popen
-from platform import system
-from constants import NETWORK
+import  os
+import platform 
+from constants import *
 
 def network_discovery():
-   net = NETWORK
-   net1= net.split('.')
-   net2 = ".".join(net1) + '.'
+   # String avec l'IP du serveur sans la partie hote
+   network_without_machine = NETWORK[:-1] 
 
-   oper = system()
+   # Os de la machine qui lance le code
+   os = platform.system()
 
    liste_ip = []
 
-   if (oper == "Windows"):
-      ping1 = "ping -n 1 "
-      flag = "TTL"
-   elif (oper == "Linux"):
-      ping1 = "ping -c 1 "
-      flag = "ttl"
-   else :
-      ping1 = "ping -c 1 "
-      flag = "ttl"
+   ping_command = "ping -n 1 " if os == "Windows" else "ping -c 1 "
+   flag = "TTL" if os == "Windows" else "ttl"
 
-   for ip in range(1, 255):
-      addr = net2 + str(ip)
-      comm = ping1 + addr
-      response = popen(comm)
+
+   for ip_hote in range(1, 255):
+      # Generation de la commande ping
+      address_ip = network_without_machine + str(ip_hote)
+      command = ping_command + address_ip
+
+      # Execution de la reponse
+      response = os.popen(command)
+      print(address_ip, "test...")
+
+      # On verifie le resulat de la commande
       for line in response.readlines():
+         # On a une reponse 
          if (line.find(flag) != -1):
-            liste_ip.append(addr)
+            liste_ip.append(address_ip)
 
    return liste_ip
 
