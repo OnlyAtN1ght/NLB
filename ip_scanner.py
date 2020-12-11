@@ -6,6 +6,7 @@ def network_discovery():
    net = NETWORK
    net1= net.split('.')
    net2 = ".".join(net1) + '.'
+
    oper = system()
 
    liste_ip = []
@@ -24,8 +25,12 @@ def network_discovery():
       addr = net2 + str(ip)
       comm = ping1 + addr
       response = popen(comm)
+      print(addr, "test...")
       for line in response.readlines():
          if (line.find(flag) != -1):
             liste_ip.append(addr)
 
    return liste_ip
+
+if __name__ == '__main__':
+   print(network_discovery())
