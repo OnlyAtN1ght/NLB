@@ -54,7 +54,7 @@ def callback_paquet_recu(paquet):
 
 	# On verifie que le message nous est adressé ( et que le message n'est pas en broadcast)
 	# On verfie que le flag du paquet est 2 ou 4, c'est à dire que le paquet provient du serveur 
-	if (dst == IP_propre() and dst != "10.147.17.255") or flag == 2 or flag == 4:
+	if (dst == IP_propre() and dst != "10.147.17.255") or flag == 2 or flag == 4 or flag == 5:
 		
 		# Affichage des données du paquet recu 
 		print("\n\n")
