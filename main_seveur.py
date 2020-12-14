@@ -60,7 +60,7 @@ def calcul_vainqueur():
 	# On envoie le vainqueur à tous les joueurs
 	adresse_IP_vainqueur = LISTE_IP.index(score_final_table[0])
 	vainqueur_paquet = GamePacket(compteur = adresse_IP_vainqueur, flag = 4)
-	envoie(vainqueur_paquet,"10.147.17.255")
+	envoie(vainqueur_paquet, "10.147.17.255")
 	exit()
 
 def recup_score(paquet = 0):
