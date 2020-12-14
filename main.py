@@ -53,15 +53,16 @@ def callback_paquet_recu(paquet):
 	valeur = getattr(paquet_class["GamePacket"], "compteur")
 	flag = getattr(paquet_class["GamePacket"], "flag")
 
-	# Affichage des données du paquet recu 
-	print("Compteur reçu :",valeur)
-	print("Flag reçu :", flag)
-	print("Source :",src)
-	print("Destination :",dst)
-
 	# On verifie que le message nous est adressé ( et que le message n'est pas en broadcast)
 	# On verfie que le flag du paquet est 2 ou 4, c'est à dire que le paquet provient du serveur 
 	if (dst == IP_propre() and dst != "10.147.17.255") or flag == 2 or flag == 4:
+		
+		# Affichage des données du paquet recu 
+		print("Compteur reçu :",valeur)
+		print("Flag reçu :", flag)
+		print("Source :",src)
+		print("Destination :",dst)
+		
 		# Cas normal du jeu 
 		if valeur > 0 and flag == 0:
 			nouveau_paquet = GamePacket(compteur = int(valeur)-1, flag = 0)

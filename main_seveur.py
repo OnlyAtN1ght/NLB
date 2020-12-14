@@ -50,7 +50,7 @@ def calcul_vainqueur():
 	# On trie le dictionnaire des scores
 	score_final_table = sorted(score_final, key = score_final.get, reverse = True)
 
-	somme = sum(score_final.values)
+	somme = sum(score_final.values())
 	if somme != COMPTEUR:
 		print("Une erreur est survenue, un tricheur parmi nous ?")
 		envoie(GamePacket(compteur = -1, flag = 4))
@@ -109,15 +109,15 @@ def callback_paquet_recu(paquet):
 	valeur = getattr(paquet_class["GamePacket"], "compteur")
 	flag = getattr(paquet_class["GamePacket"], "flag")
 
-	# Affichage des données du paquet recu 
-	print("Compteur reçu :",valeur)
-	print("Flag reçu :", flag)
-	print("Source :",src)
-	print("Destination :",dst)
-
-
 	# On verifie que le paquet nous est destiné et que le jeu est en fonctionement et n'est pas fini
 	if dst == IP_propre() and dst!="10.147.17.255" and flag == 0 and valeur > 0:
+		
+		# Affichage des données du paquet recu 
+		print("Compteur reçu :",valeur)
+		print("Flag reçu :", flag)
+		print("Source :",src)
+		print("Destination :",dst)
+
 		# On genere le nouveau paquet de jeu
 		nouveau_paquet = GamePacket(compteur = int(valeur)-1, flag = 0)
 		envoie(nouveau_paquet)
