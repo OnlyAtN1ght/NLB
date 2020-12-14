@@ -53,7 +53,7 @@ def calcul_vainqueur():
 	somme = sum(score_final.values())
 	if somme != COMPTEUR:
 		print("Une erreur est survenue, un tricheur parmi nous ?")
-		envoie(GamePacket(compteur = 666, flag = 5))
+		envoie(GamePacket(compteur = 666, flag = 5), "10.147.17.255")
 		exit()
 	print("Le vainqueur est : ", score_final_table[0])
 
