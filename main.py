@@ -8,7 +8,7 @@ from constants import *
 from ip_scanner import *
 
 SCORE_PERSO = 0
-LISTE_IP = network_discovery()
+#LISTE_IP = network_discovery()
 OS = platform.system()
 
 class GamePacket(Packet):
