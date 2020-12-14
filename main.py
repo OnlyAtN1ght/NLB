@@ -2,12 +2,14 @@ from scapy.all import *
 import random
 from sys import exit
 from time import sleep
+import platform 
 
 from constants import *
 from ip_scanner import *
 
 SCORE_PERSO = 0
 LISTE_IP = network_discovery()
+OS = platform.system()
 
 class GamePacket(Packet):
 	name = "GamePacket"
@@ -15,7 +17,8 @@ class GamePacket(Packet):
 
 def IP_propre():
 	# Renvoie l'IP de la machine qui lance le porgramme 
-	# return get_if_addr(IFACES.dev_from_name(INTERFACE_NAME))         #(Pour Windows)
+	if OS == "Windows":
+		return get_if_addr(IFACES.dev_from_name(INTERFACE_NAME))
 	return get_if_addr(INTERFACE_NAME)
 
 def trouve_destinataire_aleatoire():
