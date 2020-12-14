@@ -89,10 +89,12 @@ def callback_paquet_recu(paquet):
 
 		# Cas où le serveur envoie le vainqueur 
 		elif flag == 4 and src == IP_SERVEUR:
-			if valeur == -1:
-				print("Une erreur est survenue, un tricheur parmi nous ?")
-				exit()
 			print("\nLe vainqueur est", LISTE_IP[valeur])
+			exit()
+
+		# Cas où il y a un tricheur
+		elif flag == 5 and src == IP_SERVEUR:
+			print("\nUne erreur est survenue, un tricheur parmi nous ?")
 			exit()
 
 def attente_paquet():
