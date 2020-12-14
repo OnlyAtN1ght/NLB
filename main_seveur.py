@@ -49,13 +49,17 @@ def calcul_vainqueur():
 
 	# On trie le dictionnaire des scores
 	score_final_table = sorted(score_final, key = score_final.get, reverse = True)
-	# score_final_table : listes des adresses IP des joueurs triées en fonction de leurs scores
 
+	somme = sum(score_final.values)
+	if somme != COMPTEUR:
+		print("Une erreur est survenue, un tricheur parmi nous ?")
+		envoie(GamePacket(compteur = -1, flag = 4))
+		exit()
 	print("Le vainqueur est : ", score_final_table[0])
 
 	# On envoie le vainqueur à tous les joueurs
-	adrresse_IP_vainqueur = LISTE_IP.index(score_final_table[0])
-	vainqueur_paquet = GamePacket(compteur = adrresse_IP_vainqueur, flag = 4)
+	adresse_IP_vainqueur = LISTE_IP.index(score_final_table[0])
+	vainqueur_paquet = GamePacket(compteur = adresse_IP_vainqueur, flag = 4)
 	envoie(vainqueur_paquet,"10.147.17.255")
 	exit()
 
