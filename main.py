@@ -43,7 +43,6 @@ def envoie(paquet, destinataire = None):
 	send(paquet_construit)
 
 def callback_paquet_recu(paquet):
-	print("\n\n")
 	global SCORE_PERSO
 	paquet_class = GamePacket(paquet[Raw].load)
 
@@ -58,6 +57,7 @@ def callback_paquet_recu(paquet):
 	if (dst == IP_propre() and dst != "10.147.17.255") or flag == 2 or flag == 4:
 		
 		# Affichage des données du paquet recu 
+		print("\n\n")
 		print("Compteur reçu :",valeur)
 		print("Flag reçu :", flag)
 		print("Source :",src)

@@ -96,8 +96,7 @@ def ask_score():
 	recup_score()
 
 def callback_paquet_recu(paquet):
-	print("\n\n")
-
+	
 	global SCORE_PERSO
 
 	paquet_class = GamePacket(paquet[Raw].load)
@@ -113,6 +112,7 @@ def callback_paquet_recu(paquet):
 	if dst == IP_propre() and dst!="10.147.17.255" and flag == 0 and valeur > 0:
 		
 		# Affichage des données du paquet recu 
+		print("\n\n")
 		print("Compteur reçu :",valeur)
 		print("Flag reçu :", flag)
 		print("Source :",src)
