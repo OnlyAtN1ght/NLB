@@ -77,7 +77,7 @@ def callback_paquet_recu(paquet):
 			envoie(end_paquet,IP_SERVEUR)
 
 		# Cas où le serveur demande les scores 
-		elif flag == 2:
+		elif flag == 2 and src == IP_SERVEUR:
 			# Pour que tout le monde n'envoye pas ses messages en meme temps, chaque joueur sleep une durée differente
 			# La durée depend de l'adresse IP propre
 			sleep(LISTE_IP.index(IP_propre()) + 1)
@@ -88,7 +88,7 @@ def callback_paquet_recu(paquet):
 			envoie(score_paquet,IP_SERVEUR)
 
 		# Cas où le serveur envoie le vainqueur 
-		elif flag == 4:
+		elif flag == 4 and src == IP_SERVEUR:
 			if valeur == -1:
 				print("Une erreur est survenue, un tricheur parmi nous ?")
 				exit()
